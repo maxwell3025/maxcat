@@ -1,0 +1,24 @@
+#!/bin/bash
+
+FILE=asdfasdadvasdc
+
+# Currently, I only support markdown files
+pandoc \
+	-f gfm \
+	-o "/tmp/$FILE.pdf" \
+	$1 \
+
+convert \
+	-alpha off \
+	-density 500 \
+	"/tmp/$FILE.pdf" \
+	"/tmp/$FILE.png" \
+
+convert \
+	-resize "$(kitten icat --print-window-size)^"\
+	"/tmp/$FILE.png" \
+	"/tmp/$FILE.png" \
+
+kitten icat \
+	"/tmp/$FILE.png" \
+
